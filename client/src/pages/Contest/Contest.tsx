@@ -58,7 +58,6 @@ export default function Contestt(): JSX.Element {
             setContestEnded(true);
           }
           if (contest.submissions) {
-            console.log('contest submissions', contest.submissions);
             if (contest.submissions.some((submission) => submission.is_winner === true)) {
               setContestEnded(false);
             }

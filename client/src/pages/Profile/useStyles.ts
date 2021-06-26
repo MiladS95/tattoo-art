@@ -3,12 +3,11 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
   profileContent: {
     width: '100%',
-    height: '100vh',
   },
   userImage: {
     marginTop: '4rem',
-    width: theme.spacing(15),
-    height: 'auto',
+    width: '150px',
+    height: '150px',
     marginBottom: '1rem',
   },
   userName: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tabContainer: {
     width: '80%',
-    marginTop: '2rem',
+    margin: '20px 0',
   },
   tabBar: {
     backgroundColor: 'transparent',

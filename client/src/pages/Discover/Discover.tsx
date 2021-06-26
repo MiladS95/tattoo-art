@@ -7,23 +7,31 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import useStyles from './useStyles';
-
+import placeholder from '../../Images/placeholder.jpeg';
 export default function Discovery(): JSX.Element {
   const [allContests, setAllContests] = useState<[Contest]>();
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   const { loggedInUser } = useAuth();
   const classes = useStyles();
 
+  const homePage = 1;
+
   useEffect(() => {
     async function fetchAllContests() {
-      const response = await getAllContests();
+      const response = await getAllContests(page);
 
       if (response) {
         const contests = response.contests;
         setAllContests(contests);
       }
+      if (response.totalPage && response.page) {
+        setPage(response.page);
+        setTotalPage(response.totalPage);
+      }
     }
     fetchAllContests();
-  }, []);
+  }, [page]);
 
   return (
     <Grid container justify="center" className={classes.container}>
@@ -34,7 +42,7 @@ export default function Discovery(): JSX.Element {
         <GridList cellHeight={300} className={classes.contestGrid}>
           {allContests ? (
             allContests.map((contest) => (
-              <GridListTile key={contest._id} cols={contest.price >= 300 ? 2 : 1} rows={contest.price >= 300 ? 2 : 1}>
+              <GridListTile key={contest._id}>
                 {loggedInUser ? (
                   <Button
                     component={Link}
@@ -43,7 +51,11 @@ export default function Discovery(): JSX.Element {
                     disableElevation={true}
                     className={classes.link}
                   >
-                    <img src={contest.images[0]} alt={contest.title} className={classes.contestImage} />
+                    <img
+                      src={contest.images[0] ? contest.images[0] : placeholder}
+                      alt={contest.title}
+                      className={classes.contestImage}
+                    />
                   </Button>
                 ) : (
                   <Button
@@ -74,6 +86,31 @@ export default function Discovery(): JSX.Element {
           )}
         </GridList>
       </Grid>
+      {page > homePage && (
+        <Button
+          type="submit"
+          disabled={page === 1}
+          onClick={() => setPage(page - homePage)}
+          variant="contained"
+          color="primary"
+          className={classes.pageButton}
+        >
+          Previous Page
+        </Button>
+      )}
+
+      {page < totalPage && (
+        <Button
+          type="submit"
+          disabled={page >= totalPage}
+          onClick={() => setPage(page + homePage)}
+          variant="contained"
+          color="primary"
+          className={classes.pageButton}
+        >
+          Next Page
+        </Button>
+      )}
     </Grid>
   );
 }

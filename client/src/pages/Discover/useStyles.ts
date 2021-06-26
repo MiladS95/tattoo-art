@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    display: 'flex',
     width: '100%',
     height: '100%',
     '&::-webkit-Scrollbar': {
@@ -9,8 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contestGrid: {
-    width: '100%',
-    height: '100%',
+    flex: '0.8',
     '&::-webkit-Scrollbar': {
       display: 'none',
     },
@@ -32,6 +32,17 @@ const useStyles = makeStyles((theme) => ({
   },
   listContainer: {
     height: '100%',
+    justifyContent: 'center',
+  },
+  pageButton: {
+    width: 200,
+    height: 56,
+    borderRadius: 0,
+    margin: 20,
+    fontSize: 16,
+    backgroundColor: 'black',
+    fontWeight: 'bold',
+    '&:hover': { color: 'black', backgroundColor: 'white' },
   },
 }));
 

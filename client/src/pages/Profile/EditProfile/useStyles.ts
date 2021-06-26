@@ -34,6 +34,29 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: 'white',
     },
   },
+  profileImageContainer: {
+    height: '50vh',
+    alignContent: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+  },
+  profileImage: {
+    width: '150px',
+    height: '150px',
+    margin: '20px',
+  },
+  submit: {
+    color: 'white',
+    width: 200,
+    height: 56,
+    borderRadius: 0,
+    marginTop: '20px',
+    fontSize: 16,
+    backgroundColor: 'black',
+    fontWeight: 'bold',
+    '&:hover': { color: 'black', backgroundColor: 'white' },
+  },
 }));
 
 export default useStyles;

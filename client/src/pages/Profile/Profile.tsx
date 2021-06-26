@@ -12,7 +12,6 @@ import {
   createMuiTheme,
 } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { User } from '../../interface/User';
 import { Link } from 'react-router-dom';
 import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
@@ -33,6 +32,7 @@ export default function Profile(): JSX.Element {
   const [value, setValue] = useState(0);
   const [userContests, setUserContests] = useState<[Contest]>();
   const [submissions, setSubmissions] = useState<Submission[]>();
+
   const { loggedInUser } = useAuth();
 
   const MyTheme = createMuiTheme({
@@ -93,6 +93,7 @@ export default function Profile(): JSX.Element {
     async function fetchContestsForUser() {
       const response = await getContestsByUser();
       const submissionData = await getSubmissionsForUser();
+
       if (response) {
         const contests = response.contests;
         setUserContests(contests);
@@ -112,7 +113,7 @@ export default function Profile(): JSX.Element {
         <Avatar
           className={classes.userImage}
           alt="Profile Image"
-          src={`https://robohash.org/${loggedInUser.email}.png`}
+          src={loggedInUser.profileImage ? loggedInUser.profileImage : `https://robohash.org/${loggedInUser.email}.png`}
         />
         <Typography className={classes.userName}>{loggedInUser.username}</Typography>
         <Link to={'/editProfile'} className={classes.link}>
@@ -145,7 +146,7 @@ export default function Profile(): JSX.Element {
               <ListView data={handleComp()} message={'No Contest Completed'} route={'/contest'} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <ListView data={handleSubmission()} message={'No Contest Completed'} route={'/contest'} />
+              <ListView data={handleSubmission()} message={'No Submissions made'} route={'/contest'} />
             </TabPanel>
           </Paper>
         </Box>

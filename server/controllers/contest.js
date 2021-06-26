@@ -22,23 +22,40 @@ exports.getContestById = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllContests = asyncHandler(async (req, res, next) => {
-  let contests = await Contest.find().where("end_date").gte(new Date());
+  var perPage = 4;
+  var page = Math.max(0, req.query.page) - 1;
+
+  let allContests = await Contest.find().where("end_date").gte(new Date());
+
+  let contests = await Contest.find()
+    .where("end_date")
+    .gte(new Date())
+    .limit(perPage)
+    .skip(page * perPage);
 
   if (!contests) {
     res.status(404);
     throw new Error("No contest found for given id");
   }
 
-  res.status(200).json({ contests: contests });
+  const totalPages = allContests.length / perPage;
+
+  res.status(200).json({
+    contests: contests,
+    page: Number(req.query.page),
+    totalPage: totalPages,
+  });
 });
 
 exports.createContest = asyncHandler(async (req, res, next) => {
   const { title, description, price, end_date, images } = req.body;
 
+  const updatedPrice = price - 5;
+
   const createdContest = await Contest.create({
     title,
     description,
-    price,
+    price: updatedPrice,
     end_date,
     images: images,
     creator: req.user.id,
@@ -140,11 +157,13 @@ exports.createContestCharge = asyncHandler(async (req, res, next) => {
       setup_future_usage: "off_session",
     });
 
+    console.log("paymentIntent", charge);
+
     if (charge) {
       const paymentIntent = await stripe.paymentIntents.confirm(charge.id, {
         payment_method: "pm_card_visa",
       });
-      // }
+
       if (paymentIntent) {
         res.status(201).json({
           success: {

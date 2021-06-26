@@ -11,7 +11,7 @@ const customerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user_id: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  user_id: { type: mongoose.Types.ObjectId, required: true, ref: "user" },
 });
 
 module.exports = Customer = mongoose.model("customer", customerSchema);

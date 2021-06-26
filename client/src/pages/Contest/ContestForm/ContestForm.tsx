@@ -27,7 +27,7 @@ const initialState: ContestFormState = {
     error: false,
   },
   deadline: {
-    value: moment().add(1, 'day').format('YYYY-MM-DD'),
+    value: moment().format('YYYY-MM-DD'),
     error: false,
   },
 };
@@ -95,7 +95,7 @@ const ContestForm: React.FC = () => {
 
   const selectFiles = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-
+    console.log('hello');
     let tempArray: File[] | null = [];
 
     if (imageArray) {
@@ -232,7 +232,7 @@ const ContestForm: React.FC = () => {
                     <TextField
                       name="deadline"
                       type="date"
-                      defaultValue={moment().add(2, 'day').format('YYYY-MM-DD')}
+                      defaultValue={moment().format('YYYY-MM-DD')}
                       className={classes.contestDateInput}
                       variant="outlined"
                       onChange={(e) =>

@@ -40,13 +40,13 @@ export const chargeCard = async (paymentData: unknown): Promise<AuthApiCustomerD
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 };
-export const getAllContests = async (): Promise<AuthApiData> => {
+export const getAllContests = async (page: number): Promise<AuthApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch('/contest/contests', fetchOptions)
+  return await fetch(`/contest/contests?page=${page}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

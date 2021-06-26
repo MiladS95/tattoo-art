@@ -1,7 +1,8 @@
 export interface User {
   email: string;
   username: string;
-  id: string;
+  id?: string;
+  profileImage: string;
 }
 
 export interface SearchUsersApiData {
@@ -11,7 +12,10 @@ export interface SearchUsersApiData {
 
 export interface Customer {
   _id: string;
-  user_id: string;
+  user_id: {
+    _id: string;
+    profileImage?: string;
+  };
   payment_id: string;
   customer_id: string;
   register_date: string;

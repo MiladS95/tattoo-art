@@ -10,7 +10,7 @@ const emailWinner = (email, name) => {
     to: "milad9890@gmail.com",
     from: "hatchwayssparta@gmail.com",
     subject: "Contest Winner",
-    text: `Hello ${name} congratulations on winning the contst your prize money has been sent`,
+    text: `Hello ${name} congratulations on winning the contest your prize money has been sent`,
   };
 
   sgMail.send(msg, function (err, info) {

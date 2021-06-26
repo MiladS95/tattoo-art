@@ -11,6 +11,8 @@ export interface AuthApiData {
   error?: { message: string };
   success?: AuthApiDataSuccess;
   contests?: [Contest];
+  page?: number;
+  totalPage?: number;
 }
 
 export interface AuthApiCustomerData {
