@@ -1,4 +1,4 @@
-## Project Name
+## Tattoo Art
 
 This is a little description about your project.
 
